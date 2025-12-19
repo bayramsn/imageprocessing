@@ -1,298 +1,307 @@
 # 🖼️ Bilgisayarlı Görü ve Derin Öğrenme Projeleri
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)](https://opencv.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red.svg)](https://pytorch.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://tensorflow.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Bu depo, **klasik görüntü işlemeden derin öğrenmeye** kadar adım adım ilerleyen mini projeleri içerir. Her proje bağımsız çalışabilir ve **Türkçe yorumlarla** açıklanmıştır.
 
 > 🎯 **Amaç:** OpenCV ve PyTorch kullanarak görüntü işleme temellerini öğrenmek
 
 ---
 
-## 📦 Kurulum
+## 🚀 Hızlı Başlangıç
 
 ```bash
-# 1. Sanal ortam oluştur
+# 1. Repoyu klonla
+git clone https://github.com/bayramsn/imageprocessing.git
+cd imageprocessing
+
+# 2. Sanal ortam oluştur
 python -m venv .venv
 
-# 2. Aktive et (Windows PowerShell)
+# 3. Aktive et (Windows PowerShell)
 .venv\Scripts\activate
 
-# 3. Bağımlılıkları yükle
+# 4. Bağımlılıkları yükle
 pip install -r requirements.txt
 ```
 
-**Gereksinimler:** `numpy`, `opencv-python`, `matplotlib`, `torch`, `torchvision`, `tensorflow/keras` (CNN eğitimi için)
+---
+
+## 📦 Gereksinimler
+
+| Paket | Versiyon | Kullanım |
+|-------|----------|----------|
+| `numpy` | ≥1.21 | Matris işlemleri |
+| `opencv-python` | ≥4.5 | Görüntü işleme |
+| `matplotlib` | ≥3.4 | Görselleştirme |
+| `torch` | ≥2.0 | Derin öğrenme |
+| `torchvision` | ≥0.15 | Hazır modeller |
+| `tensorflow` | ≥2.10 | CNN eğitimi |
+| `scipy` | ≥1.7 | Sinyal işleme |
 
 ---
 
-## 🗂️ Proje Yapısı ve Öğrenme Yolu
+## 🗂️ Proje Yapısı
 
 ```
 imageprocessing/
 │
-├── 📁 03_opencv_giris/          # ADIM 1: OpenCV'ye giriş
-├── 📁 04_gaussian_blur_opencv/  # ADIM 2: Bulanıklaştırma temelleri
-├── 📁 05_gaussian_blur_manual/  # ADIM 3: Filtrelerin matematiği
-├── 📁 06_traditional_image_processing/  # ADIM 4: Geleneksel yöntemler
-├── 📁 07_keypoints_features/    # ADIM 5: Özellik çıkarımı
-├── 📁 08_cnn_intro/             # ADIM 6: CNN'e giriş
+├── 📁 03_opencv_giris/              # OpenCV temelleri, webcam
+├── 📁 04_gaussian_blur_opencv/      # Blur türleri karşılaştırması
+├── 📁 05_gaussian_blur_manual/      # Kernel ve convolution matematiği
+├── 📁 06_traditional_image_processing/  # Threshold, Canny, Morphology
+├── 📁 07_keypoints_features/        # SIFT, ORB, feature matching
+├── 📁 08_cnn_intro/                 # CNN eğitimi ve görselleştirme
+├── 📁 09_numpy_matplotlib/          # Matris analizi ve histogram
+├── 📁 10_detection_segmentation/    # Classification vs Detection vs Segmentation
 │
-├── 📄 utils.py                  # ADIM 7: Ortak yardımcılar
-├── 📄 project_1_similarity.py   # ADIM 8: Keypoint benzerliği
-├── 📄 project_2_edges.py        # ADIM 9: Kural tabanlı sınıflandırma
-├── 📄 project_3_cnn_ready.py    # ADIM 10: Hazır CNN çıkarımı
-├── 📄 project_4_compare.py      # ADIM 11: Sınıflandırma vs Tespit
+├── 📄 project_1_similarity.py       # ORB ile görüntü benzerliği
+├── 📄 project_2_edges.py            # Kenar tabanlı sınıflandırma
+├── 📄 project_3_cnn_ready.py        # Hazır CNN ile inference
+├── 📄 project_4_compare.py          # Sınıflandırma vs Tespit
+├── 📄 utils.py                      # Ortak yardımcı fonksiyonlar
 │
-├── 📄 requirements.txt          # Bağımlılıklar
-├── 📄 PROJE_ANLATIMI.md         # Detaylı anlatım (1. şahıs)
-├── 📄 SPECIAL_USAGE_README.md   # Özel kullanımlar sözlüğü
-└── 📄 README.md                 # Bu dosya
+├── 📄 requirements.txt
+├── 📄 SPECIAL_USAGE_README.md       # Özel kullanımlar sözlüğü
+└── 📄 README.md
 ```
 
 ---
 
-## 📚 ADIM ADIM PROJELER
+## 📚 Öğrenme Yolu
 
-### 🔹 ADIM 1: OpenCV'ye Giriş
-**Klasör:** `03_opencv_giris/`
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           ÖĞRENME HARİTASI                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  🟢 BAŞLANGIÇ          🟡 ORTA SEVİYE           🔴 İLERİ SEVİYE            │
+│                                                                             │
+│  03_opencv_giris       05_gaussian_manual       08_cnn_intro               │
+│       ↓                      ↓                       ↓                     │
+│  04_gaussian_blur      06_traditional           09_numpy_matplotlib        │
+│       ↓                      ↓                       ↓                     │
+│  project_2_edges       07_keypoints             10_detection_segmentation  │
+│                              ↓                       ↓                     │
+│                        project_1_similarity     project_3_cnn              │
+│                                                      ↓                     │
+│                                                 project_4_compare          │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
-| Dosya | Ne Öğrendim | Kullandığım Fonksiyonlar |
-|-------|-------------|-------------------------|
-| `webcam_filter.py` | Kameradan canlı görüntü alma, tuşla filtre değiştirme | `cv2.VideoCapture`, `cv2.cvtColor`, `cv2.GaussianBlur`, `cv2.resize`, `cv2.waitKey` |
+---
 
-**Çalıştırma:**
+## 📖 Proje Detayları
+
+### � Başlangıç Seviyesi
+
+<details>
+<summary><b>03 - OpenCV Giriş (Webcam Laboratuvarı)</b></summary>
+
+**Amaç:** OpenCV'nin temel yapı taşlarını öğrenmek
+
+| Dosya | Açıklama |
+|-------|----------|
+| `webcam_filter.py` | Tuşla filtre değiştirme (normal/gri/blur/resize) |
+| `webcam_fps.py` | FPS gösterimi + ekstra filtreler (cartoon, sepia, negative) |
+
 ```bash
 python 03_opencv_giris/webcam_filter.py
 # Tuşlar: c=normal, g=gri, b=blur, r=yarı çözünürlük, q=çık
 ```
 
----
+**Öğrenilen:** `cv2.VideoCapture`, `cv2.imshow`, `cv2.resize`, `cv2.waitKey`
+</details>
 
-### 🔹 ADIM 2: Gaussian Blur (OpenCV)
-**Klasör:** `04_gaussian_blur_opencv/`
+<details>
+<summary><b>04 - Gaussian Blur (Blur Karşılaştırma)</b></summary>
 
-| Dosya | Ne Öğrendim | Kullandığım Fonksiyonlar |
-|-------|-------------|-------------------------|
-| `gaussian_blur_app.py` | Trackbar ile canlı parametre ayarlama | `cv2.createTrackbar`, `cv2.getTrackbarPos`, `cv2.GaussianBlur`, `np.hstack` |
+**Amaç:** Farklı blur türlerini anlamak ve karşılaştırmak
 
-**Çalıştırma:**
+| Dosya | Açıklama |
+|-------|----------|
+| `gaussian_blur_app.py` | Trackbar ile canlı parametre ayarlama |
+| `blur_comparison.py` | Gaussian/Median/Bilateral/Box karşılaştırması |
+
 ```bash
-python 04_gaussian_blur_opencv/gaussian_blur_app.py --image foto.jpg
+python 04_gaussian_blur_opencv/blur_comparison.py resim.jpg --interactive
 ```
 
+**Öğrenilen:** Hangi blur ne zaman kullanılır, kernel size etkisi, sigma parametresi
+</details>
+
 ---
 
-### 🔹 ADIM 3: Manuel Konvolüsyon
-**Klasör:** `05_gaussian_blur_manual/`
+### 🟡 Orta Seviye
 
-| Dosya | Ne Öğrendim | Kullandığım Fonksiyonlar |
-|-------|-------------|-------------------------|
-| `gaussian_blur_manual.py` | Elle 2D Gaussian kernel oluşturma, konvolüsyon | `np.meshgrid`, `np.exp`, `np.pad`, manuel döngü |
-| `gaussian_blur_scipy.py` | SciPy ile konvolüsyon | `scipy.signal.convolve2d` |
-| `all_filters_demo.py` | Farklı filtreleri karşılaştırma | `cv2.GaussianBlur`, `cv2.medianBlur`, `cv2.bilateralFilter` |
-| `filters_from_blog.py` | Sobel, Laplacian, keskinleştirme | `cv2.boxFilter`, `cv2.Sobel`, `cv2.Laplacian`, `cv2.addWeighted` |
+<details>
+<summary><b>05 - Manuel Gaussian (Convolution Matematiği)</b></summary>
 
-**Çalıştırma:**
+**Amaç:** CNN'in temelini oluşturan convolution'ı sıfırdan yazmak
+
+| Dosya | Açıklama |
+|-------|----------|
+| `gaussian_blur_manual.py` | Elle kernel oluşturma |
+| `custom_gaussian.py` | Benchmark + OpenCV karşılaştırması |
+| `all_filters_demo.py` | Farklı filtrelerin etkisi |
+
 ```bash
-python 05_gaussian_blur_manual/gaussian_blur_manual.py --image foto.jpg --ksize 5 --sigma 1.0
-python 05_gaussian_blur_manual/all_filters_demo.py --image foto.jpg
+python 05_gaussian_blur_manual/custom_gaussian.py resim.jpg --benchmark
 ```
 
----
+**Öğrenilen:** Kernel nedir, convolution matematiği, CNN'e köprü
+</details>
 
-### 🔹 ADIM 4: Geleneksel Görüntü İşleme
-**Klasör:** `06_traditional_image_processing/`
+<details>
+<summary><b>06 - Geleneksel Görüntü İşleme</b></summary>
 
-| Dosya | Ne Öğrendim | Kullandığım Fonksiyonlar |
-|-------|-------------|-------------------------|
-| `coin_counter.py` | CLAHE, eşikleme, morfoloji, watershed, kontur analizi | `cv2.createCLAHE`, `cv2.adaptiveThreshold`, `cv2.morphologyEx`, `cv2.distanceTransform`, `cv2.watershed`, `cv2.findContours`, `cv2.Canny` |
+**Amaç:** AI'sız klasik yöntemlerle sonuç almak
 
-**Çalıştırma:**
+| Dosya | Açıklama |
+|-------|----------|
+| `coin_counter.py` | Para sayma (watershed) |
+| `preprocessing_tool.py` | Threshold/Canny/Morphology karşılaştırması |
+
 ```bash
-python 06_traditional_image_processing/coin_counter.py --image coins.jpg --watershed --show
+python 06_traditional_image_processing/preprocessing_tool.py resim.jpg --mode all
 ```
 
-**Örnek çıktı:** Para sayısını tespit edip kutular içinde gösterir.
+**Öğrenilen:** Threshold, Canny Edge, Morphological işlemler, OCR ön işleme
+</details>
 
----
+<details>
+<summary><b>07 - Keypoint ve Özellik Çıkarımı</b></summary>
 
-### 🔹 ADIM 5: Keypoint ve Özellik Eşleştirme
-**Klasör:** `07_keypoints_features/`
+**Amaç:** Görüntüden ayırt edici noktalar çıkarmak
 
-| Dosya | Ne Öğrendim | Kullandığım Fonksiyonlar |
-|-------|-------------|-------------------------|
-| `logo_match.py` | ORB/SIFT keypoint, Lowe oran testi, homografi | `cv2.ORB_create`, `cv2.SIFT_create`, `cv2.BFMatcher`, `cv2.findHomography`, `cv2.perspectiveTransform`, `cv2.drawMatches` |
+| Dosya | Açıklama |
+|-------|----------|
+| `logo_match.py` | Logo eşleştirme |
+| `feature_matcher.py` | ORB/SIFT/AKAZE karşılaştırması |
 
-**Çalıştırma:**
 ```bash
-python 07_keypoints_features/logo_match.py --template logo.png --scene sahne.jpg --feature orb
+python 07_keypoints_features/feature_matcher.py resim1.jpg resim2.jpg --method all
 ```
 
+**Öğrenilen:** Feature extraction, descriptor, Lowe ratio test, homography
+</details>
+
 ---
 
-### 🔹 ADIM 6: CNN'e Giriş (Eğitim)
-**Klasör:** `08_cnn_intro/`
+### 🔴 İleri Seviye
 
-| Dosya | Ne Öğrendim | Kullandığım Fonksiyonlar |
-|-------|-------------|-------------------------|
-| `mnist_cnn.py` | CNN mimarisi, eğitim döngüsü, doğrulama | `keras.Sequential`, `Conv2D`, `MaxPool2D`, `Dense`, `model.fit`, `model.evaluate` |
+<details>
+<summary><b>08 - CNN Giriş (Feature Map Görselleştirme)</b></summary>
 
-**Çalıştırma:**
+**Amaç:** CNN'in içini "kara kutu" olmaktan çıkarmak
+
+| Dosya | Açıklama |
+|-------|----------|
+| `mnist_cnn.py` | MNIST üzerinde CNN eğitimi |
+| `cnn_visualizer.py` | Feature map ve kernel görselleştirme |
+
 ```bash
-python 08_cnn_intro/mnist_cnn.py --epochs 20 --batch-size 128
+python 08_cnn_intro/mnist_cnn.py --epochs 10
+python 08_cnn_intro/cnn_visualizer.py mnist_cnn.h5 --kernels
 ```
 
-**Eğitim sonucu:** ~%99 doğruluk, kayıp/doğruluk grafikleri
+**Öğrenilen:** Conv2D, MaxPool, feature maps, kernel'ler ne öğrenir
+</details>
 
----
+<details>
+<summary><b>09 - NumPy & Matplotlib (Görüntü Analizi)</b></summary>
 
-### 🔹 ADIM 7: Ortak Yardımcı Fonksiyonlar
-**Dosya:** `utils.py`
+**Amaç:** Matris mantığını ve görselleştirmeyi öğrenmek
 
-| Fonksiyon | Açıklama |
-|-----------|----------|
-| `load_image_bgr(path)` | Unicode yollarda bile çalışan güvenli görüntü yükleme (`cv2.imdecode` fallback) |
-| `bgr_to_rgb(img)` | BGR → RGB dönüşümü |
-| `to_torch_tensor(img)` | NumPy → PyTorch tensör (HWC→CHW, /255) |
-| `normalize_tensor(tensor, mean, std)` | ImageNet normalizasyonu |
-| `resize_rgb(img, size)` | Boyut değiştirme |
-| `draw_boxes(img, boxes, labels, scores)` | Detection kutuları çizme |
-| `show_image(title, img)` | Yeniden boyutlanabilir pencerede gösterme |
+| Dosya | Açıklama |
+|-------|----------|
+| `image_analyzer.py` | Histogram, istatistikler, threshold karşılaştırması |
 
----
-
-### 🔹 ADIM 8: Görüntü Benzerliği (ORB)
-**Dosya:** `project_1_similarity.py`
-
-**Ne yapıyor:**
-1. İki görüntüyü yükler
-2. Gri tona çevirir
-3. ORB ile keypoint ve tanımlayıcı çıkarır
-4. BFMatcher ile eşleştirir
-5. Lowe oran testi uygular
-6. İyi eşleşme sayısına göre BENZER/BENZEMİYOR der
-
-**Çalıştırma:**
 ```bash
-python project_1_similarity.py resim1.jpg resim2.jpg --show --ratio 0.75 --min-matches 20
+python 09_numpy_matplotlib/image_analyzer.py resim.jpg --demo
 ```
 
-**Öğrenilen kavramlar:** Keypoint, Descriptor, Lowe ratio test
+**Öğrenilen:** NumPy slicing, reshape, histogram, matris = görüntü
+</details>
 
----
+<details>
+<summary><b>10 - Detection vs Segmentation</b></summary>
 
-### 🔹 ADIM 9: Kural Tabanlı Sınıflandırma
-**Dosya:** `project_2_edges.py`
+**Amaç:** Üç temel CV görevini karşılaştırmak
 
-**Ne yapıyor:**
-1. Görüntüyü yükler ve gri yapar
-2. Gaussian blur uygular
-3. Canny kenar tespiti yapar
-4. Kenar piksellerini sayar
-5. Eşiğe göre EMPTY/NOT EMPTY der
+| Dosya | Açıklama |
+|-------|----------|
+| `compare_tasks.py` | Classification/Detection/Segmentation yan yana |
 
-**Çalıştırma:**
 ```bash
-python project_2_edges.py raf.jpg --show --edge-thresh 500
+python 10_detection_segmentation/compare_tasks.py resim.jpg --save sonuc.png
 ```
 
-**Öğrenilen kavramlar:** Elle özellik tanımlama, kural tabanlı sistemlerin sınırları, CNN motivasyonu
+**Öğrenilen:** Problem türleri, model çıktıları, doğru model seçimi
+</details>
 
 ---
 
-### 🔹 ADIM 10: Hazır CNN ile Sınıflandırma
-**Dosya:** `project_3_cnn_ready.py`
+## 🎯 Bağımsız Projeler
 
-**Ne yapıyor:**
-1. MobileNet veya ResNet yükler (ön eğitimli)
-2. Görüntüyü 224×224'e boyutlandırır
-3. ImageNet normalizasyonu uygular
-4. Çıkarım yapar (eğitim YOK)
-5. Top-K tahminleri yazdırır
-
-**Çalıştırma:**
-```bash
-python project_3_cnn_ready.py kopek.jpg --model mobilenet --topk 5
-```
-
-**Öğrenilen kavramlar:** Transfer öğrenme, çıkarım vs eğitim, softmax olasılıkları
+| Proje | Açıklama | Komut |
+|-------|----------|-------|
+| `project_1_similarity.py` | ORB ile görüntü benzerliği | `python project_1_similarity.py r1.jpg r2.jpg --show` |
+| `project_2_edges.py` | Kenar tabanlı EMPTY/NOT EMPTY | `python project_2_edges.py raf.jpg --show` |
+| `project_3_cnn_ready.py` | Hazır CNN ile sınıflandırma | `python project_3_cnn_ready.py kopek.jpg` |
+| `project_4_compare.py` | Classification vs Detection | `python project_4_compare.py sokak.jpg --show` |
 
 ---
 
-### 🔹 ADIM 11: Sınıflandırma vs Nesne Tespiti
-**Dosya:** `project_4_compare.py`
+## 📊 Teknoloji Karşılaştırması
 
-**Ne yapıyor:**
-1. **Sınıflandırma:** ResNet ile "bu ne?" sorusuna cevap
-2. **Tespit:** Faster R-CNN ile "nerede ne var?" sorusuna cevap + kutular
-
-**Çalıştırma:**
-```bash
-python project_4_compare.py sokak.jpg --score 0.5 --show
-```
-
-**Öğrenilen kavramlar:**
-| Sınıflandırma | Nesne Tespiti |
-|---------------|---------------|
-| Tek etiket | Birden fazla kutu + etiket |
-| Konum yok | Bounding box koordinatları |
-| Hafif | Ağır (FPN, RPN, NMS) |
+| Görev | Klasik Yöntem | Derin Öğrenme |
+|-------|---------------|---------------|
+| Kenar tespiti | `cv2.Canny` | Conv2D katmanı |
+| Özellik çıkarımı | ORB, SIFT | CNN feature maps |
+| Sınıflandırma | Kural tabanlı | ResNet, MobileNet |
+| Nesne tespiti | Kontur analizi | YOLO, Faster R-CNN |
+| Segmentasyon | Threshold + Morphology | U-Net, DeepLab |
 
 ---
 
-## 📄 Dokümantasyon Dosyaları
+## 📄 Dokümantasyon
 
 | Dosya | İçerik |
 |-------|--------|
-| `SPECIAL_USAGE_README.md` | Tüm dosyalardaki özel OpenCV/PyTorch kullanımlarının sözlüğü |
+| [`SPECIAL_USAGE_README.md`](SPECIAL_USAGE_README.md) | Tüm dosyalardaki özel OpenCV/PyTorch kullanımlarının sözlüğü |
+| [`PROJE_ANLATIMI.md`](PROJE_ANLATIMI.md) | Detaylı proje anlatımı (1. şahıs) |
+| Her klasördeki `README.md` | Proje bazlı detaylı dokümantasyon |
 
 ---
 
-## 🎯 Öğrenme Akışı Özeti
+## 🤝 Katkıda Bulunma
 
-```
-TEMEL OpenCV                    GELENEKSEL CV                    DERİN ÖĞRENME
-     │                               │                                │
-     ▼                               ▼                                ▼
-┌─────────────┐              ┌─────────────┐              ┌─────────────────┐
-│ webcam_filter│              │coin_counter │              │   mnist_cnn     │
-│ gaussian_blur│     ───►    │ logo_match  │     ───►    │ project_3_cnn   │
-│ manuel filtre│              │project_1,2  │              │ project_4_compare│
-└─────────────┘              └─────────────┘              └─────────────────┘
-
-   cv2.resize                   cv2.findContours               torch.no_grad()
-   cv2.cvtColor                 cv2.ORB_create                  model.eval()
-   cv2.GaussianBlur             cv2.BFMatcher                   softmax
-```
+1. Fork yapın
+2. Feature branch oluşturun (`git checkout -b feature/yeni-ozellik`)
+3. Commit yapın (`git commit -m 'Yeni özellik eklendi'`)
+4. Push yapın (`git push origin feature/yeni-ozellik`)
+5. Pull Request açın
 
 ---
 
-## 🚀 Hızlı Başlangıç Komutları
+## 📝 Lisans
 
-```bash
-# Webcam filtresi
-python 03_opencv_giris/webcam_filter.py
-
-# İki resim benzerliği
-python project_1_similarity.py resim1.jpg resim2.jpg --show
-
-# Kenar tabanlı sınıflandırma
-python project_2_edges.py foto.jpg --show
-
-# CNN ile nesne tanıma
-python project_3_cnn_ready.py kopek.jpg --model resnet
-
-# Sınıflandırma vs Detection karşılaştırması
-python project_4_compare.py sokak.jpg --show
-```
+Bu proje MIT lisansı altında lisanslanmıştır.
 
 ---
 
-## 📝 Sonraki Adımlar
+## 📬 İletişim
 
-- [ ] YOLO ile gerçek zamanlı nesne tespiti
-- [ ] Kendi veri setiyle fine-tuning
-- [ ] Segmentasyon (piksel bazlı maske)
-- [ ] Video analizi ve nesne takibi
+**GitHub:** [@bayramsn](https://github.com/bayramsn)
 
 ---
 
-*Bu proje, bilgisayarlı görü öğrenme yolculuğumun bir kaydıdır. Her dosya Türkçe yorumlarla açıklanmıştır.*
+<p align="center">
+  <i>Bu proje, bilgisayarlı görü öğrenme yolculuğumun bir kaydıdır. Her dosya Türkçe yorumlarla açıklanmıştır.</i>
+</p>

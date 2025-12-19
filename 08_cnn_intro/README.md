@@ -1,12 +1,32 @@
-# MNIST CNN (Keras)
+# 🧠 CNN Nedir? - Mini CNN Görselleştirici
 
-## Hızlı Başlangıç
+Bu klasör, MNIST veri seti üzerinde basit bir evrişimli sinir ağı (CNN) eğiten,
+eğitim sürecini görselleştiren ve feature map'leri analiz eden araçlar içerir.
+
+## 🎯 Amaç
+CNN'in içini "kara kutu" olmaktan çıkarmak. Her katmandan çıkan feature map'leri görselleştirmek.
+
+## 📦 Gereksinimler
+```bash
+pip install tensorflow numpy matplotlib opencv-python
+```
+
+## 🚀 Hızlı Başlangıç
+
+### Model Eğitimi
 ```powershell
 & "C:\opencv yakalayıcı\.venv\Scripts\python.exe" "C:/opencv yakalayıcı/08_cnn_intro/mnist_cnn.py" ^
   --epochs 5 --batch-size 128 ^
   --model-out "mnist_cnn.h5" ^
   --plot-out "training_curve.png"
 ```
+
+### Feature Map Görselleştirme
+```bash
+python cnn_visualizer.py mnist_cnn.h5
+python cnn_visualizer.py mnist_cnn.h5 --kernels
+```
+
 - Eğitim sonunda test doğruluğu yazdırılır, model `mnist_cnn.h5` olarak kaydedilir, kayıp/doğruluk grafiği `training_curve.png` olarak çıkartılır.
 
 ## Özel Rakam Tahmini

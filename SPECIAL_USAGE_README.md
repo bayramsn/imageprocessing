@@ -92,3 +92,73 @@ Her dosyadaki dikkat çekici / alışılmışın dışındaki çağrılar ve yan
   - Detection: `fasterrcnn_resnet50_fpn` + `FasterRCNN_ResNet50_FPN_Weights.DEFAULT` ile COCO kutuları.
   - Detection modeline giriş: Liste halinde tensör, normalize edilmiş RGB.
   - `draw_boxes` yardımcı fonksiyonu: Skor eşiğiyle kutu ve etiket çizer.
+
+---
+
+## 🆕 Yeni Eklenen Projeler
+
+- [03_opencv_giris/webcam_fps.py](03_opencv_giris/webcam_fps.py)
+  - FPS hesaplama: `frame_count / (curr_time - prev_time)` ile gerçek zamanlı performans ölçümü.
+  - `apply_cartoon_filter`: `cv2.adaptiveThreshold` + `cv2.bilateralFilter` + `cv2.bitwise_and` kombinasyonu.
+  - `apply_sepia_filter`: `cv2.transform` ile özel renk dönüşüm matrisi uygulama.
+  - `cv2.imwrite`: Tuşla ekran görüntüsü kaydetme (`p` tuşu).
+  - Dinamik filtre sistemi: Dictionary tabanlı mod seçimi ve `chr(key)` ile tuş eşleştirme.
+
+- [04_gaussian_blur_opencv/blur_comparison.py](04_gaussian_blur_opencv/blur_comparison.py)
+  - `add_noise`: Gaussian ve tuz-biber gürültüsü ekleme için NumPy random fonksiyonları.
+  - `compare_blur_types`: Gaussian, Median, Bilateral, Box filtrelerini tek fonksiyonda karşılaştırma.
+  - `compare_kernel_sizes`: Farklı kernel boyutlarının etkisini görselleştirme.
+  - `compare_sigma_values`: Sigma parametresinin blur üzerindeki etkisini analiz.
+  - `interactive_blur`: `cv2.createTrackbar` ile canlı blur türü ve kernel seçimi.
+  - `kernel | 1` yerine `k if k % 2 == 1 else k + 1`: Kernel'i tek sayıya zorlama.
+
+- [05_gaussian_blur_manual/custom_gaussian.py](05_gaussian_blur_manual/custom_gaussian.py)
+  - `create_gaussian_kernel`: Formülden elle 2D Gaussian kernel üretimi ve normalize etme.
+  - `create_gaussian_kernel_fast`: `np.outer` ile vektörize kernel üretimi (1D→2D).
+  - `convolve2d_manual`: Nested loop ile piksel piksel konvolüsyon (eğitim amaçlı).
+  - `convolve2d_vectorized`: `np.lib.stride_tricks.sliding_window_view` ile hızlı konvolüsyon.
+  - `gaussian_blur_separable`: 2D konvolüsyonu 2×1D'ye ayırarak O(n²)→O(2n) optimizasyonu.
+  - `benchmark`: Farklı yöntemlerin hız karşılaştırması (`time.time()` ile).
+  - `visualize_kernel`: `matplotlib 3D surface plot` ile kernel görselleştirme.
+
+- [06_traditional_image_processing/preprocessing_tool.py](06_traditional_image_processing/preprocessing_tool.py)
+  - `threshold_comparison`: Binary, Otsu, Adaptive Mean/Gaussian eşik yöntemlerini karşılaştırma.
+  - `edge_detection_comparison`: Sobel X/Y, Laplacian, Canny kenar tespit yöntemleri.
+  - `morphology_comparison`: Erosion, Dilation, Opening, Closing, Gradient, Top/Black Hat.
+  - `document_preprocessing`: Belge tarama için adım adım pipeline (Gri→Blur→Adaptive→Morph).
+  - `plate_detection_preprocessing`: Plaka tanıma için `cv2.bilateralFilter` + Canny + kontur analizi.
+  - `cv2.approxPolyDP`: Konturları basitleştirip dikdörtgen (4 köşe) bulma.
+  - `interactive_preprocessing`: Trackbar ile canlı threshold/canny/morph parametreleri.
+
+- [07_keypoints_features/feature_matcher.py](07_keypoints_features/feature_matcher.py)
+  - `detect_features`: ORB, SIFT, AKAZE, BRISK algoritmalarını tek fonksiyonda destekleme.
+  - `match_features`: Descriptor tipine göre `NORM_HAMMING` veya `NORM_L2` otomatik seçimi.
+  - `draw_matches_custom`: Rastgele renkli çizgilerle özel eşleşme görselleştirme.
+  - `find_homography`: `cv2.findHomography(..., cv2.RANSAC)` ile sağlam homografi kestirimi.
+  - `compare_methods`: Tüm algoritmaları aynı görüntü çiftinde karşılaştırma ve benchmark.
+  - `visualize_keypoints`: `cv2.drawKeypoints(..., DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)` ile detaylı keypoint çizimi.
+
+- [08_cnn_intro/cnn_visualizer.py](08_cnn_intro/cnn_visualizer.py)
+  - `get_feature_maps`: Intermediate model oluşturarak Conv katman çıkışlarını alma.
+  - `visualize_feature_maps`: Her katmandaki filtreleri grid halinde gösterme.
+  - `visualize_kernels`: `layer.get_weights()` ile öğrenilen kernel ağırlıklarını görselleştirme.
+  - `visualize_activations_grid`: Tüm Conv/Pool katmanlarını ayrı figürlerde gösterme.
+  - `model_summary_visual`: Layer başına parametre sayısını manuel formatlama.
+
+- [09_numpy_matplotlib/image_analyzer.py](09_numpy_matplotlib/image_analyzer.py)
+  - `analyze_pixels`: NumPy ile min/max/mean/std/median istatistikleri.
+  - `apply_threshold` / `apply_adaptive_threshold`: OpenCV eşikleme fonksiyonları.
+  - `plot_analysis`: 3×3 subplot ile kapsamlı görüntü analizi (histogram, threshold, heatmap).
+  - `demonstrate_numpy_operations`: Slicing, reshape, boolean indexing eğitim demonstrasyonu.
+  - `gray.ravel()`: 2D→1D dönüşümü histogram için.
+  - `np.cumsum`: Kümülatif histogram hesaplama.
+  - RGB kanal analizi: `img[:, :, i]` ile kanal bazlı istatistikler.
+
+- [10_detection_segmentation/compare_tasks.py](10_detection_segmentation/compare_tasks.py)
+  - `run_classification`: `ResNet50_Weights.DEFAULT` ile ImageNet sınıflandırma.
+  - `run_detection`: `FasterRCNN_ResNet50_FPN_Weights` ile COCO nesne tespiti.
+  - `run_segmentation`: `DeepLabV3_ResNet50_Weights` ile semantic segmentation.
+  - `outputs["out"].argmax(1)`: Segmentasyon çıkışından sınıf maskesi üretme.
+  - `colors[mask]`: NumPy fancy indexing ile renkli maske oluşturma.
+  - `cv2.rectangle` ile detection kutularını çizme.
+  - Üç görevin aynı görüntü üzerinde yan yana karşılaştırması.
