@@ -16,7 +16,7 @@ def load_image_bgr(path: str) -> np.ndarray:
     img = cv2.imread(path, cv2.IMREAD_COLOR)
     
     # cv2.imread Türkçe karakterli yollarda çalışmıyor bazen
-    # stackoverflow'dan buldum bu çözümü
+   
     if img is None:
         with open(path, "rb") as f:
             data = np.asarray(bytearray(f.read()), dtype=np.uint8)
@@ -28,7 +28,7 @@ def load_image_bgr(path: str) -> np.ndarray:
 
 
 def bgr_to_rgb(img: np.ndarray) -> np.ndarray:
-    """BGR -> RGB dönüşümü"""
+    """BGR  RGB dönüşümü"""
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 
