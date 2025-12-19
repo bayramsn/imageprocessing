@@ -6,7 +6,7 @@ import cv2  # OpenCV fonksiyonlarini kullanmak icin cv2 modulu
 import numpy as np  # Sayisal islemler ve matrisler icin NumPy
 
 
-DEFAULT_IMAGE = r"C:\opencv yakalayŽñcŽñ\05_gaussian_blur_manual\ai.jpg"  # Varsayilan gorsel dosya yolu
+DEFAULT_IMAGE = r"C:\opencv yakalayıcı\05_gaussian_blur_manual\ai.jpg"  # Varsayilan gorsel dosya yolu
 
 
 def load_image(path: str) -> np.ndarray:  # Verilen yoldan gorseli okuyup donduren fonksiyon
@@ -137,27 +137,27 @@ def stack_images(images: Dict[str, np.ndarray]) -> np.ndarray:  # Gorselleri tab
 
 
 def parse_args() -> argparse.Namespace:  # Komut satiri parametrelerini toplayan fonksiyon
-    parser = argparse.ArgumentParser(description="Coin counter: threshold + morphology + Canny + contours")  # Aciklama ile parser olustur
-    parser.add_argument("--image", "-i", default=DEFAULT_IMAGE, help=f"Input image path (default: {DEFAULT_IMAGE})")  # Girdi gorsel yolunu al
+    parser = argparse.ArgumentParser(description="Coin counting tool")  # Aciklama ile parser olustur
+    parser.add_argument("--image", "-i", default=DEFAULT_IMAGE, help="Input image path")  # Girdi gorsel yolunu al
     parser.add_argument("--blur-ksize", type=int, default=5, help="Gaussian blur kernel size (odd)")  # Gauss bulaniklastirma cekirdek boyutu
     parser.add_argument("--blur-sigma", type=float, default=1.0, help="Gaussian sigma")  # Gauss sigma degeri
     parser.add_argument("--clahe", action="store_true", help="Apply CLAHE before blur")  # Bulaniklastirmadan once CLAHE uygulanacak mi
     parser.add_argument("--clahe-clip", type=float, default=2.0, help="CLAHE clip limit")  # CLAHE clip limiti
     parser.add_argument("--clahe-grid", type=int, default=8, help="CLAHE grid size")  # CLAHE grid boyutu
-    parser.add_argument("--thresh", type=int, default=0, help="Threshold value (0 => Otsu; ignored if adaptive)")  # Sabit esik degeri
+    parser.add_argument("--thresh", type=int, default=0, help="Threshold value (0=auto)")  # Sabit esik degeri
     parser.add_argument("--adaptive", action="store_true", help="Use adaptive threshold")  # Uyarlamali esikleme kullanilsin mi
-    parser.add_argument("--adaptive-merge", action="store_true", help="OR adaptive result with Otsu to capture difficult regions")  # Uyarlamali sonucu Otsu ile birlestir
+    parser.add_argument("--adaptive-merge", action="store_true", help="Combine adaptive and auto threshold")  # Uyarlamali sonucu Otsu ile birlestir
     parser.add_argument("--block", type=int, default=11, help="Adaptive block size (odd)")  # Uyarlamali esik blok boyutu
     parser.add_argument("--c", type=int, default=2, help="Adaptive constant C")  # Uyarlamali esik sabiti
-    parser.add_argument("--morph", choices=["open", "close", "erode", "dilate"], default="close", help="Morphology op")  # Morfoloji islemi secimi
+    parser.add_argument("--morph", choices=["open", "close", "erode", "dilate"], default="close", help="Morphology operation")  # Morfoloji islemi secimi
     parser.add_argument("--morph-ksize", type=int, default=5, help="Morphology kernel size")  # Morfoloji cekirdek boyutu
-    parser.add_argument("--morph-seq", action="store_true", help="Apply close->open sequence after main morph")  # Morfoloji sonrasi close-open sirasi
+    parser.add_argument("--morph-seq", action="store_true", help="Apply additional morphology sequence")  # Morfoloji sonrasi close-open sirasi
     parser.add_argument("--canny-low", type=int, default=80, help="Canny lower")  # Canny alt esik degeri
     parser.add_argument("--canny-high", type=int, default=160, help="Canny upper")  # Canny ust esik degeri
-    parser.add_argument("--min-area", type=float, default=30.0, help="Min contour area to count")  # Kontur sayimi icin minimum alan
-    parser.add_argument("--min-area-pct", type=float, default=0.005, help="Min area as % of image (0.5% by default); takes max of this and --min-area")  # Goruntu yuzdesi olarak alt alan limiti
+    parser.add_argument("--min-area", type=float, default=30.0, help="Min area for counting")  # Kontur sayimi icin minimum alan
+    parser.add_argument("--min-area-pct", type=float, default=0.005, help="Min area as percent image")  # Goruntu yuzdesi olarak alt alan limiti
     parser.add_argument("--area-pctile", type=float, default=0.2, help="Use this percentile of detected areas as dynamic min-area (0.2 = 20th percentile)")  # Alan yuzdeligi ile dinamik alt limit
-    parser.add_argument("--watershed", action="store_true", help="Use distance transform + watershed to split touching coins")  # Watershed bolme islemi kullanilsin mi
+    parser.add_argument("--watershed", action="store_true", help="Use watershed splitting")  # Watershed bolme islemi kullanilsin mi
     parser.add_argument("--min-distance", type=int, default=3, help="Min distance kernel for watershed seeds")  # Watershed tohumlari icin minimum mesafe cekirdegi
     return parser.parse_args()  # Argumanlari isle ve sonuc nesnesini dondur
 

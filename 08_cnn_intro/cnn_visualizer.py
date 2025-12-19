@@ -58,13 +58,13 @@ def get_feature_maps(model, input_image, layer_indices=None):
     
     for idx in layer_indices:
         layer = model.layers[idx]
-        # Intermediate model oluştur
-        intermediate_model = keras.Model(
-            inputs=model.input,
+        # Fonksiyonel model kullanarak ara çıktıyı al
+        extractor = keras.Model(
+            inputs=model.inputs,
             outputs=layer.output
         )
         # Feature map al
-        fmap = intermediate_model.predict(input_image, verbose=0)
+        fmap = extractor.predict(input_image, verbose=0)
         feature_maps[layer.name] = fmap[0]  # Batch boyutunu kaldır
     
     return feature_maps
@@ -149,7 +149,7 @@ def visualize_activations_grid(model, input_image, save_path=None):
     layer_outputs = [layer.output for layer in model.layers if 'conv' in layer.name or 'pool' in layer.name]
     layer_names = [layer.name for layer in model.layers if 'conv' in layer.name or 'pool' in layer.name]
     
-    activation_model = keras.Model(inputs=model.input, outputs=layer_outputs)
+    activation_model = keras.Model(inputs=model.inputs, outputs=layer_outputs)
     activations = activation_model.predict(input_image, verbose=0)
     
     # Her katman için ayrı figür
