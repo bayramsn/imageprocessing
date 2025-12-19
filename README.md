@@ -242,7 +242,6 @@ python project_4_compare.py sokak.jpg --score 0.5 --show
 
 | Dosya | İçerik |
 |-------|--------|
-| `PROJE_ANLATIMI.md` | 4 yeni projenin 1. şahıs ağzından adım adım anlatımı |
 | `SPECIAL_USAGE_README.md` | Tüm dosyalardaki özel OpenCV/PyTorch kullanımlarının sözlüğü |
 
 ---
