@@ -130,7 +130,7 @@ imageprocessing/
 
 ## 📖 Proje Detayları
 
-### � Başlangıç Seviyesi
+### 🟢 Başlangıç Seviyesi
 
 <details>
 <summary><b>03 - OpenCV Giriş (Webcam Laboratuvarı)</b></summary>
@@ -141,13 +141,14 @@ imageprocessing/
 | ------------------ | ----------------------------------------------------------- |
 | `webcam_filter.py` | Tuşla filtre değiştirme (normal/gri/blur/resize)            |
 | `webcam_fps.py`    | FPS gösterimi + ekstra filtreler (cartoon, sepia, negative) |
+| `webcam_paint.py`  | **(Yeni)** Sanal çizim tahtası (Webcam ile çizim)           |
 
 ```bash
 python 03_opencv_giris/webcam_filter.py
 # Tuşlar: c=normal, g=gri, b=blur, r=yarı çözünürlük, q=çık
 ```
 
-**Öğrenilen:** `cv2.VideoCapture`, `cv2.imshow`, `cv2.resize`, `cv2.waitKey`
+**Öğrenilen:** `cv2.VideoCapture`, `cv2.imshow`, `cv2.setMouseCallback`
 
 </details>
 
@@ -160,12 +161,13 @@ python 03_opencv_giris/webcam_filter.py
 | ---------------------- | --------------------------------------------- |
 | `gaussian_blur_app.py` | Trackbar ile canlı parametre ayarlama         |
 | `blur_comparison.py`   | Gaussian/Median/Bilateral/Box karşılaştırması |
+| `tilt_shift_effect.py` | **(Yeni)** Minyatür şehir efekti oluşturma    |
 
 ```bash
 python 04_gaussian_blur_opencv/blur_comparison.py resim.jpg --interactive
 ```
 
-**Öğrenilen:** Hangi blur ne zaman kullanılır, kernel size etkisi, sigma parametresi
+**Öğrenilen:** Blur teknikleri, maskeleme, doygunluk artırma
 
 </details>
 
@@ -178,17 +180,17 @@ python 04_gaussian_blur_opencv/blur_comparison.py resim.jpg --interactive
 
 **Amaç:** CNN'in temelini oluşturan convolution'ı sıfırdan yazmak
 
-| Dosya                     | Açıklama                           |
-| ------------------------- | ---------------------------------- |
-| `gaussian_blur_manual.py` | Elle kernel oluşturma              |
-| `custom_gaussian.py`      | Benchmark + OpenCV karşılaştırması |
-| `all_filters_demo.py`     | Farklı filtrelerin etkisi          |
+| Dosya                     | Açıklama                                   |
+| ------------------------- | ------------------------------------------ |
+| `gaussian_blur_manual.py` | Elle kernel oluşturma                      |
+| `custom_gaussian.py`      | Benchmark + OpenCV karşılaştırması         |
+| `kernel_playground.py`    | **(Yeni)** Özel filtreler (Sharpen/Emboss) |
 
 ```bash
 python 05_gaussian_blur_manual/custom_gaussian.py resim.jpg --benchmark
 ```
 
-**Öğrenilen:** Kernel nedir, convolution matematiği, CNN'e köprü
+**Öğrenilen:** Kernel nedir, convolution, filtre matrisleri
 
 </details>
 
@@ -197,16 +199,17 @@ python 05_gaussian_blur_manual/custom_gaussian.py resim.jpg --benchmark
 
 **Amaç:** AI'sız klasik yöntemlerle sonuç almak
 
-| Dosya                   | Açıklama                                   |
-| ----------------------- | ------------------------------------------ |
-| `coin_counter.py`       | Para sayma (watershed)                     |
-| `preprocessing_tool.py` | Threshold/Canny/Morphology karşılaştırması |
+| Dosya                   | Açıklama                                        |
+| ----------------------- | ----------------------------------------------- |
+| `coin_counter.py`       | Para sayma (watershed)                          |
+| `preprocessing_tool.py` | Threshold/Canny/Morphology karşılaştırması      |
+| `shape_detector.py`     | **(Yeni)** Geometrik şekil tespiti (Kare/Daire) |
 
 ```bash
 python 06_traditional_image_processing/preprocessing_tool.py resim.jpg --mode all
 ```
 
-**Öğrenilen:** Threshold, Canny Edge, Morphological işlemler, OCR ön işleme
+**Öğrenilen:** Threshold, Canny Edge, Contours, ApproxPolyDP
 
 </details>
 
@@ -215,16 +218,17 @@ python 06_traditional_image_processing/preprocessing_tool.py resim.jpg --mode al
 
 **Amaç:** Görüntüden ayırt edici noktalar çıkarmak
 
-| Dosya                | Açıklama                       |
-| -------------------- | ------------------------------ |
-| `logo_match.py`      | Logo eşleştirme                |
-| `feature_matcher.py` | ORB/SIFT/AKAZE karşılaştırması |
+| Dosya                | Açıklama                                   |
+| -------------------- | ------------------------------------------ |
+| `logo_match.py`      | Logo eşleştirme                            |
+| `feature_matcher.py` | ORB/SIFT/AKAZE karşılaştırması             |
+| `panorama_maker.py`  | **(Yeni)** Panorama oluşturucu (Stitching) |
 
 ```bash
 python 07_keypoints_features/feature_matcher.py resim1.jpg resim2.jpg --method all
 ```
 
-**Öğrenilen:** Feature extraction, descriptor, Lowe ratio test, homography
+**Öğrenilen:** Feature matching, Homography, Image Stitching
 
 </details>
 
@@ -237,17 +241,17 @@ python 07_keypoints_features/feature_matcher.py resim1.jpg resim2.jpg --method a
 
 **Amaç:** CNN'in içini "kara kutu" olmaktan çıkarmak
 
-| Dosya               | Açıklama                             |
-| ------------------- | ------------------------------------ |
-| `mnist_cnn.py`      | MNIST üzerinde CNN eğitimi           |
-| `cnn_visualizer.py` | Feature map ve kernel görselleştirme |
+| Dosya                       | Açıklama                             |
+| --------------------------- | ------------------------------------ |
+| `mnist_cnn.py`              | MNIST üzerinde CNN eğitimi           |
+| `cnn_visualizer.py`         | Feature map ve kernel görselleştirme |
+| `data_augmentation_demo.py` | **(Yeni)** Veri çoğaltma teknikleri  |
 
 ```bash
 python 08_cnn_intro/mnist_cnn.py --epochs 10
-python 08_cnn_intro/cnn_visualizer.py mnist_cnn.h5 --kernels
 ```
 
-**Öğrenilen:** Conv2D, MaxPool, feature maps, kernel'ler ne öğrenir
+**Öğrenilen:** Conv2D, Torchvision Transforms, Augmentation
 
 </details>
 
@@ -256,15 +260,16 @@ python 08_cnn_intro/cnn_visualizer.py mnist_cnn.h5 --kernels
 
 **Amaç:** Matris mantığını ve görselleştirmeyi öğrenmek
 
-| Dosya               | Açıklama                                            |
-| ------------------- | --------------------------------------------------- |
-| `image_analyzer.py` | Histogram, istatistikler, threshold karşılaştırması |
+| Dosya                      | Açıklama                                            |
+| -------------------------- | --------------------------------------------------- |
+| `image_analyzer.py`        | Histogram, istatistikler, threshold karşılaştırması |
+| `color_distribution_3d.py` | **(Yeni)** 3D RGB renk uzayı analizi                |
 
 ```bash
 python 09_numpy_matplotlib/image_analyzer.py resim.jpg --demo
 ```
 
-**Öğrenilen:** NumPy slicing, reshape, histogram, matris = görüntü
+**Öğrenilen:** NumPy slicing, 3D Plotting, RGB uzayı
 
 </details>
 
@@ -273,15 +278,16 @@ python 09_numpy_matplotlib/image_analyzer.py resim.jpg --demo
 
 **Amaç:** Üç temel CV görevini karşılaştırmak
 
-| Dosya              | Açıklama                                       |
-| ------------------ | ---------------------------------------------- |
-| `compare_tasks.py` | Classification/Detection/Segmentation yan yana |
+| Dosya                  | Açıklama                                       |
+| ---------------------- | ---------------------------------------------- |
+| `compare_tasks.py`     | Classification/Detection/Segmentation yan yana |
+| `face_eye_detector.py` | **(Yeni)** Haar Cascade ile yüz/göz tespiti    |
 
 ```bash
 python 10_detection_segmentation/compare_tasks.py resim.jpg --save sonuc.png
 ```
 
-**Öğrenilen:** Problem türleri, model çıktıları, doğru model seçimi
+**Öğrenilen:** Haar Cascades, Object Detection, ROI
 
 </details>
 
