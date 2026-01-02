@@ -23,6 +23,7 @@ ENV/
 *.jpg
 *.jpeg
 !README*.png
+!sample_*.png
 
 # OS
 .DS_Store
