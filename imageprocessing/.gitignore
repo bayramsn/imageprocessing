@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project outputs (keep structure, ignore contents)
+outputs/logs/*.json
+outputs/logs/*.csv
+outputs/videos/*.mp4
+outputs/videos/*.avi
+
+# Model weights
+*.pt
+*.onnx
+*.engine
+
+# Jupyter
+.ipynb_checkpoints/

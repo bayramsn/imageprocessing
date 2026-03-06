@@ -1,0 +1,46 @@
+# ─── Default configuration for cv-human-behavior-analytics ───
+
+# Video source: 0 = webcam, path = video file, rtsp://... = RTSP stream
+source: 0
+
+# Model paths (Ultralytics will auto-download if not found)
+detection_model: "yolov8n.pt"
+pose_model: "yolov8n-pose.pt"
+segmentation_model: "yolov8n-seg.pt"
+
+# Detection
+confidence_threshold: 0.45
+iou_threshold: 0.5
+person_class_id: 0            # COCO class-id for "person"
+max_detections: 50
+
+# Tracking
+tracker: "bytetrack"           # bytetrack | botsort
+tracker_config: null           # path to custom tracker yaml; null → ultralytics default
+
+# Pose
+pose_confidence: 0.3
+
+# Behavior classification thresholds
+behavior:
+  sit_knee_angle: 120          # degrees – below this → sitting
+  run_speed_threshold: 60      # px/s – above this → running
+  walk_speed_threshold: 15     # px/s – above this → walking
+
+# Pipeline toggles (override from CLI)
+enable_tracking: true
+enable_pose: true
+enable_behavior: true
+enable_logging: true
+enable_overlay: true
+enable_segmentation: false
+
+# Performance
+stride: 1                     # process every N-th frame
+imgsz: 640                    # inference image size
+device: ""                    # "" = auto, "cpu", "cuda", "cuda:0", "mps"
+
+# Output
+save_video: false
+output_dir: "outputs"
+show_window: true
