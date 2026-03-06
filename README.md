@@ -10,6 +10,8 @@ Bu depo, **klasik görüntü işlemeden derin öğrenmeye** kadar adım adım il
 
 > 🎯 **Amaç:** OpenCV ve PyTorch kullanarak görüntü işleme temellerini öğrenmek
 
+> 📁 **Not:** Bu repo iki katmandan oluşur: kökte eğitim/demolar bulunur, [imageprocessing/README.md](imageprocessing/README.md) altında ise gerçek zamanlı insan davranışı analitiği için ayrı paketlenmiş bir uygulama yer alır.
+
 ---
 
 ## 🚀 Hızlı Başlangıç
@@ -54,6 +56,10 @@ pip install -r requirements.txt
 | `torchvision`   | ≥0.15    | Hazır modeller   |
 | `tensorflow`    | ≥2.10    | CNN eğitimi      |
 | `scipy`         | ≥1.7     | Sinyal işleme    |
+| `Pillow`        | ≥10.0    | Görsel yükleme   |
+| `PyYAML`        | ≥6.0     | Konfigürasyon    |
+| `ultralytics`   | ≥8.0     | YOLOv8 pipeline  |
+| `pytest`        | ≥7.0     | Testler          |
 
 ---
 

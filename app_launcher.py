@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import subprocess
-import os
 import sys
+from pathlib import Path
 
 class ProjectLauncherApp:
     def __init__(self, root):
         self.root = root
+        self.base_dir = Path(__file__).resolve().parent
         self.root.title("Görüntü İşleme Proje Başlatıcı")
         self.root.geometry("600x700")
         
@@ -99,11 +100,12 @@ class ProjectLauncherApp:
         btn.pack(side=tk.RIGHT, padx=10)
         
     def run_project(self, script_path, req_type):
-        if not os.path.exists(script_path):
-            messagebox.showerror("Hata", f"Dosya bulunamadı:\n{script_path}")
+        script_file = self.base_dir / script_path
+        if not script_file.exists():
+            messagebox.showerror("Hata", f"Dosya bulunamadı:\n{script_file}")
             return
 
-        cmd = [sys.executable, script_path]
+        cmd = [sys.executable, str(script_file)]
         
         if req_type == True: # Tek resim
             file_path = filedialog.askopenfilename(
@@ -125,7 +127,7 @@ class ProjectLauncherApp:
 
         # Komutu çalıştır
         try:
-            subprocess.Popen(cmd)
+            subprocess.Popen(cmd, cwd=str(self.base_dir))
         except Exception as e:
             messagebox.showerror("Hata", f"Çalıştırma hatası:\n{str(e)}")
 

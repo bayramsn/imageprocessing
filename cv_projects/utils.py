@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 """
 Ortak yardımcı fonksiyonlar
 bu dosyayı diğer projelerden import ediyorum
 """
 import os
+from typing import TYPE_CHECKING
+
 import cv2
 import numpy as np
-import torch
+
+if TYPE_CHECKING:
+    import torch
 
 
 def load_image_bgr(path: str) -> np.ndarray:
@@ -35,6 +41,8 @@ def bgr_to_rgb(img: np.ndarray) -> np.ndarray:
 def to_torch_tensor(img_rgb: np.ndarray) -> torch.Tensor:
     # RGB görüntüyü pytorch tensöre çevir
     # HWC -> CHW formatı lazım pytorch için
+    import torch
+
     tensor = torch.from_numpy(img_rgb).float()
     tensor = tensor.permute(2, 0, 1)  # kanal sırası değişiyor
     tensor = tensor / 255.0
@@ -43,6 +51,8 @@ def to_torch_tensor(img_rgb: np.ndarray) -> torch.Tensor:
 
 def normalize_tensor(tensor: torch.Tensor, mean: list[float], std: list[float]) -> torch.Tensor:
     """ImageNet normalizasyonu - mean ve std değerleri modelden geliyor"""
+    import torch
+
     mean_t = torch.tensor(mean).view(3, 1, 1)
     std_t = torch.tensor(std).view(3, 1, 1)
     return (tensor - mean_t) / std_t

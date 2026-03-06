@@ -26,12 +26,16 @@ def detect_faces_eyes(image_path, output_path=None):
     face_cascade_path = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
     eye_cascade_path = cv2.data.haarcascades + 'haarcascade_eye.xml'
 
-    if not os.path.exists(face_cascade_path):
+    if not os.path.exists(face_cascade_path) or not os.path.exists(eye_cascade_path):
         print("HATA: Haar cascade dosyaları bulunamadı. Lütfen opencv-python kütüphanesini kontrol edin.")
         return
 
     face_cascade = cv2.CascadeClassifier(face_cascade_path)
     eye_cascade = cv2.CascadeClassifier(eye_cascade_path)
+
+    if face_cascade.empty() or eye_cascade.empty():
+        print("HATA: Haar cascade sınıflandırıcıları yüklenemedi.")
+        return
 
     # Yüz tespiti
     # scaleFactor: Her ölçekte görüntünün ne kadar küçüleceği (1.1 = %10)
