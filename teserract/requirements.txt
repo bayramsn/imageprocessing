@@ -1,0 +1,10 @@
+pytesseract>=0.3.13
+opencv-python>=4.10.0
+Pillow>=11.0.0
+numpy>=2.0.0
+rapidfuzz>=3.13.0
+streamlit>=1.43.0
+pandas>=2.3.0
+openpyxl>=3.1.5
+pypdfium2>=4.30.0
+tkinterdnd2>=0.4.2

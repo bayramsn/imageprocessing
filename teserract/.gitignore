@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.vscode/
+build/
+dist/
+*.exe
+outputs/*.png
+outputs/*.jpg
+outputs/*.jpeg
+outputs/*.txt
+outputs/*.json
+outputs/*.csv
+outputs/*.xlsx
+outputs/*.db

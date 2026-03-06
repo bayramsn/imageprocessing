@@ -1,0 +1,36 @@
+{
+  "name": "kimlik_template",
+  "description": "Ornek kimlik benzeri belge icin alan koordinatlari ve regex ipuclari",
+  "image": "images/document_sample.png",
+  "anchor_image": "images/tc_anchor.png",
+  "ocr": {
+    "lang": "tur",
+    "psm": 6
+  },
+  "fields": {
+    "tc_kimlik_no": {
+      "type": "text",
+      "roi": [370, 190, 420, 60],
+      "regex": "\\b\\d{11}\\b"
+    },
+    "isim": {
+      "type": "text",
+      "roi": [370, 290, 320, 60],
+      "regex": "[A-ZÇĞİÖŞÜ]{2,}"
+    },
+    "soyisim": {
+      "type": "text",
+      "roi": [370, 390, 320, 60],
+      "regex": "[A-ZÇĞİÖŞÜ]{2,}"
+    },
+    "dogum_tarihi": {
+      "type": "date",
+      "roi": [370, 490, 320, 60],
+      "regex": "\\b\\d{2}[./-]\\d{2}[./-]\\d{4}\\b"
+    },
+    "adres": {
+      "type": "text",
+      "roi": [370, 585, 900, 70]
+    }
+  }
+}

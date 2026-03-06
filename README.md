@@ -1,16 +1,50 @@
-# 🖼️ Bilgisayarlı Görü ve Derin Öğrenme Projeleri
+# 🖼️ Bilgisayarlı Görü, Derin Öğrenme ve OCR Projeleri
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)](https://opencv.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red.svg)](https://pytorch.org/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://tensorflow.org/)
+[![Tesseract](https://img.shields.io/badge/Tesseract-5.x-blueviolet.svg)](https://github.com/tesseract-ocr/tesseract)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Bu depo, **klasik görüntü işlemeden derin öğrenmeye** kadar adım adım ilerleyen mini projeleri içerir. Her proje bağımsız çalışabilir ve **Türkçe yorumlarla** açıklanmıştır.
+Bu depo, **klasik görüntü işlemeden derin öğrenmeye** ve **OCR'a** kadar adım adım ilerleyen projeleri içerir. Her modül bağımsız çalışabilir ve **Türkçe yorumlarla** açıklanmıştır.
 
-> 🎯 **Amaç:** OpenCV ve PyTorch kullanarak görüntü işleme temellerini öğrenmek
+> 🎯 **Amaç:** OpenCV, PyTorch ve Tesseract kullanarak görüntü işleme, bilgisayarlı görü ve metin tanıma temellerini öğrenmek  
+> 🗂️ **Kapsam:** 3 bağımsız alt proje — CV öğrenme modülleri · davranış analitiği pipeline · OCR masaüstü uygulaması
 
-> 📁 **Not:** Bu repo iki katmandan oluşur: kökte eğitim/demolar bulunur, [imageprocessing/README.md](imageprocessing/README.md) altında ise gerçek zamanlı insan davranışı analitiği için ayrı paketlenmiş bir uygulama yer alır.
+---
+
+## 📂 Repo Haritası
+
+```
+imageproccesing/
+│
+├── 📁 03_opencv_giris/              # OpenCV temelleri & webcam lab
+├── 📁 04_gaussian_blur_opencv/      # Blur türleri & tilt-shift efekti
+├── 📁 05_gaussian_blur_manual/      # Convolution matematiği sıfırdan
+├── 📁 06_traditional_image_processing/  # AI'sız klasik yöntemler
+├── 📁 07_keypoints_features/        # Feature matching & panorama
+├── 📁 08_cnn_intro/                 # CNN eğitimi & görselleştirme
+├── 📁 09_numpy_matplotlib/          # Matris analizi & 3D renk uzayı
+├── 📁 10_detection_segmentation/    # Yüz tespiti & görev karşılaştırması
+│
+├── 📁 cv_projects/                  # Bağımsız CV projeleri (ORB, Kenar, CNN)
+│
+├── 📁 imageprocessing/              # 🔬 Gerçek zamanlı insan davranışı analitiği
+│   ├── src/pipeline/               #    YOLOv8 · ByteTrack · COCO-17 pose
+│   ├── configs/                    #    YAML konfigürasyon
+│   └── tests/                      #    pytest test paketi (24 test)
+│
+├── 📁 teserract/                    # 📝 OCR masaüstü uygulaması
+│   ├── src/                        #    Basit→ileri OCR modülleri
+│   ├── streamlit_app.py            #    Web arayüzü (Streamlit)
+│   ├── desktop_app.py              #    Tkinter masaüstü GUI
+│   └── docs/                       #    Kapsamlı dokümantasyon
+│
+├── 🚀 app_launcher.py              # Tkinter GUI – tüm modülleri başlatır
+├── 📄 requirements.txt
+└── 📄 README.md
+```
 
 ---
 
@@ -49,97 +83,50 @@ pip install -r requirements.txt
 
 | Paket           | Versiyon | Kullanım         |
 | --------------- | -------- | ---------------- |
-| `numpy`         | ≥1.21    | Matris işlemleri |
-| `opencv-python` | ≥4.5     | Görüntü işleme   |
-| `matplotlib`    | ≥3.4     | Görselleştirme   |
-| `torch`         | ≥2.0     | Derin öğrenme    |
-| `torchvision`   | ≥0.15    | Hazır modeller   |
-| `tensorflow`    | ≥2.10    | CNN eğitimi      |
-| `scipy`         | ≥1.7     | Sinyal işleme    |
-| `Pillow`        | ≥10.0    | Görsel yükleme   |
-| `PyYAML`        | ≥6.0     | Konfigürasyon    |
-| `ultralytics`   | ≥8.0     | YOLOv8 pipeline  |
-| `pytest`        | ≥7.0     | Testler          |
+| `numpy`         | ≥1.24    | Matris işlemleri                  |
+| `opencv-python` | ≥4.8     | Görüntü işleme & kamera           |
+| `matplotlib`    | ≥3.7     | Görselleştirme                    |
+| `torch`         | ≥2.0     | Derin öğrenme                     |
+| `torchvision`   | ≥0.15    | Hazır modeller & veri artırma     |
+| `tensorflow`    | ≥2.10    | CNN eğitimi (MNIST)               |
+| `scipy`         | ≥1.10    | Sinyal/görüntü işleme             |
+| `Pillow`        | ≥10.0    | Görüntü yükleme/kaydetme          |
+| `PyYAML`        | ≥6.0     | Pipeline konfigürasyonu           |
+| `ultralytics`   | ≥8.0     | YOLOv8 tespit & segmentasyon      |
+| `pytesseract`   | ≥0.3     | Tesseract OCR bağlayıcısı         |
+| `streamlit`     | ≥1.30    | OCR web arayüzü                   |
+| `pytest`        | ≥7.0     | Otomatik test                     |
 
 ---
 
-## 🗂️ Proje Yapısı
-
-```
-imageprocessing/
-│
-├── 📁 03_opencv_giris/              # OpenCV temelleri
-│   ├── webcam_filter.py
-│   └── webcam_paint.py              # 🆕 Sanal çizim tahtası
-│
-├── 📁 04_gaussian_blur_opencv/      # Blur türleri karşılaştırması
-│   ├── blur_comparison.py
-│   └── tilt_shift_effect.py         # 🆕 Minyatür şehir efekti
-│
-├── 📁 05_gaussian_blur_manual/      # Kernel ve convolution
-│   ├── custom_gaussian.py
-│   └── kernel_playground.py         # 🆕 Filtre bahçesi (Sharpen/Emboss)
-│
-├── 📁 06_traditional_image_processing/
-│   ├── preprocessing_tool.py
-│   └── shape_detector.py            # 🆕 Geometrik şekil tespiti
-│
-├── 📁 07_keypoints_features/        # Feature matching
-│   ├── feature_matcher.py
-│   └── panorama_maker.py            # 🆕 Panorama oluşturucu
-│
-├── 📁 08_cnn_intro/                 # CNN eğitimi
-│   ├── mnist_cnn.py
-│   └── data_augmentation_demo.py    # 🆕 Veri çoğaltma demosu
-│
-├── 📁 09_numpy_matplotlib/          # Matris analizi
-│   ├── image_analyzer.py
-│   └── color_distribution_3d.py     # 🆕 3D renk analizi
-│
-├── 📁 10_detection_segmentation/
-│   ├── compare_tasks.py
-│   └── face_eye_detector.py         # 🆕 Yüz ve göz tespiti
-│
-├── 📄 app_launcher.py               # 🚀 GUI Başlatıcı (Tüm projeler için)
-├── 📄 YENI_ORNEKLER.md              # 📚 Yeni örneklerin detaylı anlatımı
-├── 📄 PROJE_ANLATIMI.md             # Orijinal projelerin hikayesi
-├── 📄 requirements.txt
-├── 📄 SPECIAL_USAGE_README.md
-└── 📄 README.md
-```
+## � Öğrenme Modülleri (03–10)
 
 ---
 
-## 📚 Öğrenme Yolu
+## �️ Öğrenme Yolu
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           ÖĞRENME HARİTASI                                  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  🟢 BAŞLANGIÇ          🟡 ORTA SEVİYE           🔴 İLERİ SEVİYE            │
-│                                                                             │
-│  03_opencv_giris       05_gaussian_manual       08_cnn_intro               │
-│       ↓                      ↓                       ↓                     │
-│  04_gaussian_blur      06_traditional           09_numpy_matplotlib        │
-│       ↓                      ↓                       ↓                     │
-│  project_2_edges       07_keypoints             10_detection_segmentation  │
-│                              ↓                       ↓                     │
-│                        project_1_similarity     project_3_cnn              │
-│                                                      ↓                     │
-│                                                 project_4_compare          │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+🟢 BAŞLANGIÇ             🟡 ORTA SEVİYE              🔴 İLERİ SEVİYE
+─────────────────────    ─────────────────────────    ──────────────────────────────
+03_opencv_giris          05_gaussian_manual           08_cnn_intro
+       ↓                        ↓                            ↓
+04_gaussian_blur         06_traditional               09_numpy_matplotlib
+       ↓                        ↓                            ↓
+project_2_edges          07_keypoints_features        10_detection_segmentation
+                                ↓                            ↓
+                         project_1_similarity         project_3_cnn_ready
+                                                             ↓
+                                                     imageprocessing/ pipeline
+                                                             ↓
+                                                     teserract/ OCR studio
 ```
 
 ---
-
-## 📖 Proje Detayları
 
 ### 🟢 Başlangıç Seviyesi
 
 <details>
-<summary><b>03 - OpenCV Giriş (Webcam Laboratuvarı)</b></summary>
+<summary><b>03 — OpenCV Giriş · Webcam Laboratuvarı</b></summary>
 
 **Amaç:** OpenCV'nin temel yapı taşlarını öğrenmek
 
@@ -159,7 +146,7 @@ python 03_opencv_giris/webcam_filter.py
 </details>
 
 <details>
-<summary><b>04 - Gaussian Blur (Blur Karşılaştırma)</b></summary>
+<summary><b>04 — Gaussian Blur · Blur Türleri Karşılaştırması</b></summary>
 
 **Amaç:** Farklı blur türlerini anlamak ve karşılaştırmak
 
@@ -182,7 +169,7 @@ python 04_gaussian_blur_opencv/blur_comparison.py resim.jpg --interactive
 ### 🟡 Orta Seviye
 
 <details>
-<summary><b>05 - Manuel Gaussian (Convolution Matematiği)</b></summary>
+<summary><b>05 — Manuel Gaussian · Convolution Matematiği</b></summary>
 
 **Amaç:** CNN'in temelini oluşturan convolution'ı sıfırdan yazmak
 
@@ -201,7 +188,7 @@ python 05_gaussian_blur_manual/custom_gaussian.py resim.jpg --benchmark
 </details>
 
 <details>
-<summary><b>06 - Geleneksel Görüntü İşleme</b></summary>
+<summary><b>06 — Geleneksel Görüntü İşleme · AI'sız Klasik Yöntemler</b></summary>
 
 **Amaç:** AI'sız klasik yöntemlerle sonuç almak
 
@@ -220,7 +207,7 @@ python 06_traditional_image_processing/preprocessing_tool.py resim.jpg --mode al
 </details>
 
 <details>
-<summary><b>07 - Keypoint ve Özellik Çıkarımı</b></summary>
+<summary><b>07 — Keypoint & Özellik Çıkarımı · Feature Matching</b></summary>
 
 **Amaç:** Görüntüden ayırt edici noktalar çıkarmak
 
@@ -243,7 +230,7 @@ python 07_keypoints_features/feature_matcher.py resim1.jpg resim2.jpg --method a
 ### 🔴 İleri Seviye
 
 <details>
-<summary><b>08 - CNN Giriş (Feature Map Görselleştirme)</b></summary>
+<summary><b>08 — CNN Giriş · Feature Map Görselleştirme</b></summary>
 
 **Amaç:** CNN'in içini "kara kutu" olmaktan çıkarmak
 
@@ -262,7 +249,7 @@ python 08_cnn_intro/mnist_cnn.py --epochs 10
 </details>
 
 <details>
-<summary><b>09 - NumPy & Matplotlib (Görüntü Analizi)</b></summary>
+<summary><b>09 — NumPy & Matplotlib · Görüntü Analizi</b></summary>
 
 **Amaç:** Matris mantığını ve görselleştirmeyi öğrenmek
 
@@ -280,7 +267,7 @@ python 09_numpy_matplotlib/image_analyzer.py resim.jpg --demo
 </details>
 
 <details>
-<summary><b>10 - Detection vs Segmentation</b></summary>
+<summary><b>10 — Detection & Segmentation · Görev Karşılaştırması</b></summary>
 
 **Amaç:** Üç temel CV görevini karşılaştırmak
 
@@ -299,37 +286,134 @@ python 10_detection_segmentation/compare_tasks.py resim.jpg --save sonuc.png
 
 ---
 
-## 🎯 Bağımsız Projeler
+## 🎯 Bağımsız Projeler (`cv_projects/`)
 
-| Proje                     | Açıklama                      | Komut                                                 |
-| ------------------------- | ----------------------------- | ----------------------------------------------------- |
-| `project_1_similarity.py` | ORB ile görüntü benzerliği    | `python project_1_similarity.py r1.jpg r2.jpg --show` |
-| `project_2_edges.py`      | Kenar tabanlı EMPTY/NOT EMPTY | `python project_2_edges.py raf.jpg --show`            |
-| `project_3_cnn_ready.py`  | Hazır CNN ile sınıflandırma   | `python project_3_cnn_ready.py kopek.jpg`             |
-| `project_4_compare.py`    | Classification vs Detection   | `python project_4_compare.py sokak.jpg --show`        |
+| Proje                     | Açıklama                                   | Komut                                                         |
+| ------------------------- | ------------------------------------------ | ------------------------------------------------------------- |
+| `project_1_similarity.py` | ORB ile iki görüntü benzerlik skoru        | `python cv_projects/project_1_similarity.py r1.jpg r2.jpg`    |
+| `project_2_edges.py`      | Kenar yoğunluğuyla RAF DOLU/BOŞ tespiti   | `python cv_projects/project_2_edges.py raf.jpg --show`        |
+| `project_3_cnn_ready.py`  | Hazır ResNet ile görüntü sınıflandırma     | `python cv_projects/project_3_cnn_ready.py kopek.jpg`         |
+| `project_4_compare.py`    | Klasik vs derin öğrenme karşılaştırması    | `python cv_projects/project_4_compare.py sokak.jpg`           |
+
+---
+
+## 🔬 Alt Proje — Gerçek Zamanlı İnsan Davranışı Analitiği
+
+> 📁 [`imageprocessing/`](imageprocessing/README.md) · Ayrı paketlenmiş uygulama
+
+YOLOv8 + ByteTrack + COCO-17 iskelet noktaları kullanarak video akışında kişileri takip eder, duruş ve hareketleri (duruyor / oturuyor / yürüyor / koşuyor) sınıflandırır.
+
+```
+imageprocessing/
+├── src/
+│   ├── pipeline/
+│   │   ├── detector_yolo.py   # YOLOv8 kişi tespiti (max_detections destekli)
+│   │   ├── tracker.py         # ByteTrack çok-kişi takibi
+│   │   ├── pose_estimator.py  # COCO-17 keypoint çıkarımı
+│   │   └── behavior.py        # Kural tabanlı duruş sınıflandırıcı
+│   └── main.py                # CLI giriş noktası
+├── configs/default.yaml       # Pipeline konfigürasyonu
+└── tests/                     # 24 pytest testi
+```
+
+**Kurulum ve Çalıştırma:**
+
+```bash
+cd imageprocessing
+pip install -e .                         # Konsol betiği kaydeder
+cv-human-behavior-analytics --source 0  # Webcam'den canlı analiz
+
+# Ya da:
+python src/main.py --source video.mp4 --disable_segmentation
+pytest tests/ -q                         # → 24 passed
+```
+
+**CLI Seçenekleri:**
+
+| Bayrak | Karşıtı | Açıklama |
+|--------|---------|----------|
+| `--enable_tracking` | `--disable_tracking` | ByteTrack takip |
+| `--enable_pose` | `--disable_pose` | Keypoint tahmini |
+| `--enable_behavior` | `--disable_behavior` | Duruş sınıflandırma |
+| `--enable_overlay` | `--disable_overlay` | Ekran bindirme |
+| `--enable_logging` | `--disable_logging` | CSV kayıt |
+| `--source` | — | Video dosyası veya kamera indeksi |
+
+---
+
+## 📝 Alt Proje — OCR Masaüstü Uygulaması
+
+> 📁 [`teserract/`](teserract/README.md) · Tesseract tabanlı OCR stüdyosu
+
+Görüntüden, PDF'den veya kameradan metin tanıma işlemlerini gerçekleştiren kapsamlı bir OCR uygulaması. Hem web arayüzü (Streamlit) hem masaüstü GUI (Tkinter) içerir.
+
+```
+teserract/
+├── src/
+│   ├── 01_basic_ocr.py          # Basit görüntü → metin
+│   ├── 02_preprocess_ocr.py     # Gürültü temizleme + OCR
+│   ├── 03_table_ocr.py          # Tablo yapısı çıkarımı
+│   ├── 04_pdf_ocr.py            # PDF sayfa işleme
+│   └── ...                      # İleri seviye modüller
+├── streamlit_app.py             # Sürükle-bırak web OCR arayüzü
+├── desktop_app.py               # Tkinter GUI (offline çalışır)
+├── build_desktop_exe.bat        # PyInstaller ile .exe paketleme
+├── tessdata/                    # Türkçe + İngilizce dil paketleri
+└── docs/                        # Kapsamlı rehberler ve soru bankası
+```
+
+**Çalıştırma:**
+
+```bash
+cd teserract
+pip install -r requirements.txt
+
+# Web arayüzü
+streamlit run streamlit_app.py
+
+# Masaüstü GUI
+python desktop_app.py
+
+# Komut satırı
+python src/01_basic_ocr.py goruntu.png
+
+# EXE derle (Windows)
+build_desktop_exe.bat
+```
+
+**OCR İşlem Akışı:**
+
+```
+Görüntü/PDF → Grileştirme → Gürültü Azaltma → Otsu Threshold
+    → Tesseract Engine → Ham Metin → Regex/NLP → Yapılandırılmış Çıktı
+```
 
 ---
 
 ## 📊 Teknoloji Karşılaştırması
 
-| Görev            | Klasik Yöntem          | Derin Öğrenme      |
-| ---------------- | ---------------------- | ------------------ |
-| Kenar tespiti    | `cv2.Canny`            | Conv2D katmanı     |
-| Özellik çıkarımı | ORB, SIFT              | CNN feature maps   |
-| Sınıflandırma    | Kural tabanlı          | ResNet, MobileNet  |
-| Nesne tespiti    | Kontur analizi         | YOLO, Faster R-CNN |
-| Segmentasyon     | Threshold + Morphology | U-Net, DeepLab     |
+| Görev               | Klasik Yöntem               | Derin Öğrenme              |
+| ------------------- | --------------------------- | -------------------------- |
+| Kenar tespiti       | `cv2.Canny`                 | Conv2D gradyan katmanı     |
+| Özellik çıkarımı    | ORB, SIFT, AKAZE            | CNN feature map            |
+| Nesne sınıflandırma | Kural + renk histogramı     | ResNet, MobileNet          |
+| Nesne tespiti       | Haar Cascade, Kontur analizi| YOLOv8, Faster R-CNN       |
+| Segmentasyon        | Threshold + Morphology      | U-Net, SAM                 |
+| Poz tahmini         | —                           | COCO-17 keypoint modeli    |
+| Metin tanıma        | Tesseract (template)        | TrOCR, EasyOCR             |
 
 ---
 
 ## 📄 Dokümantasyon
 
-| Dosya                                                | İçerik                                                       |
-| ---------------------------------------------------- | ------------------------------------------------------------ |
-| [`SPECIAL_USAGE_README.md`](SPECIAL_USAGE_README.md) | Tüm dosyalardaki özel OpenCV/PyTorch kullanımlarının sözlüğü |
-| [`PROJE_ANLATIMI.md`](PROJE_ANLATIMI.md)             | Detaylı proje anlatımı (1. şahıs)                            |
-| [`YENI_ORNEKLER.md`](YENI_ORNEKLER.md)               | **Yeni eklenen** uygulama örneklerinin detaylı açıklamaları  |
-| Her klasördeki `README.md`                           | Proje bazlı detaylı dokümantasyon                            |
+| Dosya | İçerik |
+| ----- | ------ |
+| [`SPECIAL_USAGE_README.md`](SPECIAL_USAGE_README.md) | Tüm dosyalardaki özel OpenCV/PyTorch kullanımı sözlüğü |
+| [`PROJE_ANLATIMI.md`](PROJE_ANLATIMI.md)             | Detaylı 1. şahıs proje hikayesi |
+| [`YENI_ORNEKLER.md`](YENI_ORNEKLER.md)               | Yeni eklenen örneklerin açıklamaları |
+| [`imageprocessing/README.md`](imageprocessing/README.md) | Davranış analitiği pipeline dokümantasyonu |
+| [`teserract/README.md`](teserract/README.md)         | OCR projesi rehberi |
+| [`teserract/docs/`](teserract/docs/)                 | Soru bankası, kod analizi, EXE rehberi |
 
 ---
 
@@ -356,5 +440,5 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 ---
 
 <p align="center">
-  <i>Bu proje, bilgisayarlı görü öğrenme yolculuğumun bir kaydıdır. Her dosya Türkçe yorumlarla açıklanmıştır.</i>
+  <i>Bu depo, bilgisayarlı görü ve derin öğrenme yolculuğumun canlı kaydıdır.<br>Her dosya Türkçe yorumlarla açıklanmıştır.</i>
 </p>

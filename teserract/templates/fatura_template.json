@@ -1,0 +1,27 @@
+{
+  "name": "fatura_template",
+  "description": "Fatura ve fis benzeri belgeler icin alan ornegi",
+  "image": "images/sample.png",
+  "ocr": {
+    "lang": "tur",
+    "psm": 6
+  },
+  "fields": {
+    "belge_no": {
+      "type": "text",
+      "regex": "DOC-\\d{4}-\\d{3}"
+    },
+    "tarih": {
+      "type": "date",
+      "regex": "\\b\\d{2}[./-]\\d{2}[./-]\\d{4}\\b"
+    },
+    "toplam_tutar": {
+      "type": "amount",
+      "regex": "\\b\\d+[.,]\\d{2}\\s?(?:TL|TRY)\\b"
+    },
+    "adres": {
+      "type": "text",
+      "keywords": ["MAH", "CAD", "SOKAK", "NO"]
+    }
+  }
+}
