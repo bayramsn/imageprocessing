@@ -51,6 +51,7 @@ def resolve_auto_mode(document_type: str) -> str:
         "fatura_veya_fis": "NLP Çıkarımı",
         "form": "Form Otomasyonu",
         "tablo": "Tablo Tanıma",
+        "cmr": "CMR Çıkarımı",
         "genel_belge": "OCR Temizleme",
     }
     return mapping.get(document_type, "OCR Temizleme")
@@ -80,6 +81,7 @@ mode = st.sidebar.selectbox(
         "NLP Çıkarımı",
         "Form Otomasyonu",
         "Tablo Tanıma",
+        "CMR Çıkarımı",
         "PDF OCR",
     ],
 )
@@ -254,7 +256,15 @@ if image_bgr is None:
     st.info("Soldan örnek, görsel, PDF, kamera veya klasör girişi seçin.")
     st.stop()
 
-pipeline_result = run_specialized_pipeline(image_bgr, lang=lang)
+mode_type_map = {
+    "CMR Çıkarımı": "cmr",
+    "Form Otomasyonu": "form",
+    "Tablo Tanıma": "tablo",
+    "Alan Çıkarımı": "kimlik",
+    "NLP Çıkarımı": "fatura_veya_fis"
+}
+forced_type = mode_type_map.get(mode) if mode != "Otomatik" else None
+pipeline_result = run_specialized_pipeline(image_bgr, lang=lang, forced_type=forced_type)
 edge_result = pipeline_result["edge_result"]
 ocr_input = pipeline_result["ocr_source"]
 analysis = pipeline_result
@@ -342,6 +352,15 @@ elif resolved_mode == "Tablo Tanıma":
     save_output(f"{image_label}_table_streamlit.png", table_result["annotated"])
     save_table_csv(table_result["rows"], OUTPUTS_DIR / f"{image_label}_table_streamlit.csv")
     report["rows"] = table_result["rows"]
+elif resolved_mode == "CMR Çıkarımı":
+    st.subheader("CMR Çıkarım sonucu")
+    cmr_fields = analysis["specialized"].get("cmr_fields", {})
+    if cmr_fields:
+        st.json(cmr_fields)
+        save_text(f"{image_label}_cmr_streamlit.txt", str(cmr_fields))
+        report["fields"] = cmr_fields
+    else:
+        st.info("CMR alanları bulunamadı.")
 elif resolved_mode == "PDF OCR":
     if pdf_report is None:
         st.warning("PDF OCR modu için soldan bir PDF yükleyin.")

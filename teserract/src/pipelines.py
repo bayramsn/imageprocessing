@@ -169,12 +169,14 @@ def classify_document_type(cleaned_text: str, image: np.ndarray | None = None) -
         "fatura_veya_fis": 0,
         "form": 0,
         "tablo": 0,
+        "cmr": 0,
         "genel_belge": 1,
     }
 
     kimlik_terms = ["T.C", "KIMLIK", "KİMLİK", "TC KIMLIK NO", "DOGUM", "SOYADI"]
     invoice_terms = ["FATURA", "TOPLAM", "TUTAR", "KDV", "VERGI", "VERGİ", "FIYAT"]
     form_terms = ["FORM", "BASVURU", "BAŞVURU", "AD SOYAD", "TELEFON", "E-POSTA"]
+    cmr_terms = ["CONSIGNMENT", "CMR", "CONSIGNEE", "SENDER", "DELIVERY", "GROSS WEIGHT", "NATURE OF GOODS"]
 
     for term in kimlik_terms:
         if term in upper_text:
@@ -185,6 +187,9 @@ def classify_document_type(cleaned_text: str, image: np.ndarray | None = None) -
     for term in form_terms:
         if term in upper_text:
             scores["form"] += 2
+    for term in cmr_terms:
+        if term in upper_text:
+            scores["cmr"] += 3
 
     if re.search(r"\b\d{11}\b", cleaned_text):
         scores["kimlik"] += 5
@@ -271,6 +276,23 @@ def run_specialized_pipeline(
                 "row_count": len(table_result["rows"]),
             }
         )
+    elif document_type == "cmr":
+        import json
+        from pathlib import Path
+        template_path = Path(__file__).resolve().parents[1] / "templates" / "cmr_template.json"
+        try:
+            template = json.loads(template_path.read_text(encoding="utf-8"))
+            cmr_fields = {}
+            for field_name, field_conf in template.get("fields", {}).items():
+                regex = field_conf.get("regex")
+                if regex:
+                    match = re.search(regex, analysis["corrected_text"], flags=re.IGNORECASE)
+                    cmr_fields[field_name] = match.group(1).strip() if match else None
+            specialized.update({
+                "cmr_fields": cmr_fields
+            })
+        except Exception:
+            pass
     else:
         specialized.update(
             {
@@ -714,6 +736,20 @@ def initialize_database(db_path: str | Path) -> Path:
             )
             """
         )
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS cmr_documents (
+                document_id INTEGER PRIMARY KEY,
+                sender TEXT,
+                consignee TEXT,
+                place_of_delivery TEXT,
+                taking_in_charge TEXT,
+                gross_weight TEXT,
+                nature_of_goods TEXT,
+                FOREIGN KEY(document_id) REFERENCES ocr_documents(id)
+            )
+            """
+        )
     return path
 
 
@@ -803,6 +839,24 @@ def _insert_specialized_document(connection: sqlite3.Connection, document_id: in
                 document_id,
                 specialized.get("row_count") or len(table_rows),
                 _json_dump(table_rows),
+            ),
+        )
+    elif document_type == "cmr":
+        cmr_fields = specialized.get("cmr_fields", {})
+        connection.execute(
+            """
+            INSERT OR REPLACE INTO cmr_documents (
+                document_id, sender, consignee, place_of_delivery, taking_in_charge, gross_weight, nature_of_goods
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                document_id,
+                cmr_fields.get("sender"),
+                cmr_fields.get("consignee"),
+                cmr_fields.get("place_of_delivery"),
+                cmr_fields.get("place_and_date_of_taking_in_charge"),
+                cmr_fields.get("gross_weight"),
+                cmr_fields.get("nature_of_goods"),
             ),
         )
     else:

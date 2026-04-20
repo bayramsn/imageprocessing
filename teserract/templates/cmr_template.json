@@ -1,0 +1,35 @@
+{
+  "name": "cmr_template",
+  "description": "Uluslararası Taşıma Belgesi (CMR / Consignment Note) için alan çıkarma",
+  "image": "images/cmr_sample.png",
+  "ocr": {
+    "lang": "tur+eng",
+    "psm": 3
+  },
+  "fields": {
+    "sender": {
+      "type": "text",
+      "regex": "(?i)(?:Sender|Gönderici)[^\\w]*\\s*([^\\n]+)"
+    },
+    "consignee": {
+      "type": "text",
+      "regex": "(?i)(?:Consignee|Alıcı)[^\\w]*\\s*([^\\n]+)"
+    },
+    "place_of_delivery": {
+      "type": "text",
+      "regex": "(?i)(?:Place of delivery|Teslimat yeri)[^\\w]*\\s*([^\\n]+)"
+    },
+    "place_and_date_of_taking_in_charge": {
+      "type": "text",
+      "regex": "(?i)(?:Place and date of taking in charge|Yükleme yeri ve tarihi)[^\\w]*\\s*([^\\n]+)"
+    },
+    "gross_weight": {
+      "type": "text",
+      "regex": "(?i)(?:Gross weight|Brüt ağırlık)[^\\d]*([0-9.,]+\\s*(?:kg|ton|lbs)?)"
+    },
+    "nature_of_goods": {
+      "type": "text",
+      "regex": "(?i)(?:Nature of goods|Ürün Cinsi|Açıklama)[^\\w]*\\s*([^\\n]+)"
+    }
+  }
+}
