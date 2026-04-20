@@ -184,7 +184,7 @@ class OCRDesktopApp:
         ttk.Combobox(
             controls,
             textvariable=self.image_mode_var,
-            values=["otomatik", "bounding_boxes", "tablo", "form"],
+            values=["otomatik", "bounding_boxes", "tablo", "form", "cmr"],
             state="readonly",
             width=24,
         ).grid(row=1, column=1, sticky="w", padx=6, pady=(10, 0))
@@ -532,6 +532,7 @@ class OCRDesktopApp:
                 "fatura_veya_fis": ("#c2410c", "🧾"),
                 "form": ("#7c3aed", "📋"),
                 "tablo": ("#0f766e", "📊"),
+                "cmr": ("#fbbf24", "🌍"),
                 "genel_belge": ("#475569", "📄"),
                 "tamamlandı": ("#16a34a", "✅"),
             }
@@ -558,6 +559,7 @@ class OCRDesktopApp:
                 "fatura_veya_fis": "#d97706",
                 "form": "#7c3aed",
                 "tablo": "#0f766e",
+                "cmr": "#f59e0b",
                 "genel_belge": "#475569",
                 "tamamlandı": "#16a34a",
             }
@@ -742,6 +744,20 @@ class OCRDesktopApp:
             }
             field_cards = [(key, str(value)) for key, value in (result["specialized"].get("form_fields") or {}).items()][:4]
             self._show_cards("image", [("Belge", result["classification"]["type"]), ("Pipeline", result["pipeline_name"]), *field_cards])
+            self._show_table("image", None)
+        elif mode == "cmr":
+            result = run_specialized_pipeline(image, lang=lang, forced_type="cmr")
+            self._update_preview("image_result", self.image_preview, result["edge_result"]["annotated"])
+            payload = {
+                "mode": mode,
+                "document_type": result["classification"]["type"],
+                "pipeline": result["pipeline_name"],
+                "fields": result["specialized"].get("cmr_fields"),
+                "text": result["corrected_text"],
+            }
+            cmr_fields = result["specialized"].get("cmr_fields") or {}
+            field_cards = [(key, str(value)) for key, value in cmr_fields.items() if value][:6]
+            self._show_cards("image", [("Belge", "cmr"), ("Pipeline", result["pipeline_name"]), *field_cards])
             self._show_table("image", None)
         else:
             result = run_specialized_pipeline(image, lang=lang)

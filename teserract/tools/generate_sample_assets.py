@@ -152,6 +152,27 @@ def create_table_sample() -> None:
     save(image, "table_sample.png")
 
 
+def create_cmr_sample() -> None:
+    image = Image.new("RGB", (1500, 1100), "white")
+    draw = ImageDraw.Draw(image)
+    draw.text((60, 40), "INTERNATIONAL CONSIGNMENT NOTE (CMR)", fill="black", font=FONT_44)
+
+    fields = [
+        "Sender: XYZ Logistics Company",
+        "Consignee: ABC Trading Ltd.",
+        "Place of delivery: Berlin, Germany",
+        "Place and date of taking in charge: Istanbul, Turkey - 12.04.2024",
+        "Gross weight: 24500 kg",
+        "Nature of goods: Electronic components, auto parts and textiles",
+    ]
+
+    y = 150
+    for field in fields:
+        draw.text((60, y), field, fill="black", font=FONT_32)
+        y += 80
+
+    save(image, "cmr_sample.png")
+
 def create_pdf_sample() -> None:
     PDFS_DIR.mkdir(parents=True, exist_ok=True)
     first = Image.open(IMAGES_DIR / "sample.png").convert("RGB")
@@ -170,6 +191,7 @@ def main() -> None:
     create_document_sample()
     create_form_sample()
     create_table_sample()
+    create_cmr_sample()
     create_pdf_sample()
     print("Ornek gorseller olusturuldu.")
 
