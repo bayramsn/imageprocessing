@@ -40,18 +40,10 @@ def make_gaussian_kernel(ksize: int, sigma: float) -> np.ndarray:
 def convolve2d_manual(image: np.ndarray, kernel: np.ndarray, padding: str = "reflect") -> np.ndarray:
     if image.ndim == 2:
         image = image[..., None]
-    h, w, c = image.shape
-    kh, kw = kernel.shape
-    pad = kh // 2
-    if padding == "reflect":
-        padded = np.pad(image, ((pad, pad), (pad, pad), (0, 0)), mode="reflect")
-    else:
-        padded = np.pad(image, ((pad, pad), (pad, pad), (0, 0)), mode="constant")
-    out = np.zeros_like(image, dtype=np.float32)
-    for y in range(h):
-        for x in range(w):
-            region = padded[y : y + kh, x : x + kw]
-            out[y, x] = (region * kernel[..., None]).sum(axis=(0, 1))
+
+    pad_type = cv2.BORDER_REFLECT_101 if padding == "reflect" else cv2.BORDER_CONSTANT
+    out = cv2.filter2D(image, ddepth=cv2.CV_32F, kernel=kernel.astype(np.float32), borderType=pad_type)
+
     return out.squeeze()
 
 
